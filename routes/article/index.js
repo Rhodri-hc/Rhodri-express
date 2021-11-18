@@ -2,7 +2,9 @@
 
 const express = require('express');
 const router = express.Router();
-
+// 加载数据库模块
+const Article = require('./db/article/index.js').Article;
+// 引用公共方法
 const { unifiedResult } = require("../../utils/index");
 
 /**
