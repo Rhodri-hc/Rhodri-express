@@ -1,7 +1,9 @@
 const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
+const router = require('./router')
 
+const PORT = process.env.PORT || 3000
 
 const app = express()
 
@@ -12,11 +14,8 @@ app.use(express.urlencoded())
 
 app.use(cors())
 
-const PORT = process.env.PORT || 3000
-
-app.get('/', (req, res) => {
-    res.send('hello, world')
-})
+// 挂载路由
+app.use('/api', router)
 
 app.listen(PORT, () => {
     console.log(`Server is running at http:// localhost: ${PORT}`);
