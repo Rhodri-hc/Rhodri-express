@@ -5,10 +5,10 @@ const router = express.Router();
 router.use(require("./user"));
 
 // 用户资料相关路由
-router.use("/profiles", require("./profile"));
+router.use("/profiles", require("./profiles"));
 
 // 文章相关路由
-router.use("/articles", require("./article"));
+router.use("/articles", require("./articles"));
 
 // 标签相关路由
 router.use(require("./tag"));

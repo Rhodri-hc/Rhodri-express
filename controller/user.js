@@ -1,3 +1,5 @@
+const { User } = require("../model");
+
 // Authentication 用户登录
 exports.login = async (req, res, next) => {
     try {
@@ -11,8 +13,17 @@ exports.login = async (req, res, next) => {
   // Registration 用户注册
   exports.register = async (req, res, next) => {
     try {
-      // 处理请求
-      res.send("post /users");
+      let user = new User(req.body.user);
+      // 保存到数据库
+      await user.save();
+      // 转成json
+      user = user.toJSON();
+      // 删除密码属性
+      delete user.password;
+      // 4. 发送成功响应，返回用户数据
+      res.status(201).json({
+        user,
+      });
     } catch (err) {
       next(err);
     }

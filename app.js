@@ -3,6 +3,7 @@ const morgan = require('morgan')
 const cors = require('cors')
 const router = require('./router')
 const errorHandler = require("./middleware/error-handler");
+require("./model");
 
 const PORT = process.env.PORT || 3000
 
@@ -22,5 +23,5 @@ app.use('/api', router)
 app.use(errorHandler());
 
 app.listen(PORT, () => {
-    console.log(`Server is running at http:// localhost: ${PORT}`);
+    console.log(`Server is running at http://localhost: ${PORT}`);
 })
