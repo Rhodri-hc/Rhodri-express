@@ -5,7 +5,7 @@ const userValidator = require("../validator/user");
 const router = express.Router();
 
 // Authentication 用户登录
-router.post("/users/login", userCtrl.login);
+router.post("/users/login", userValidator.login, userCtrl.login);
 
 // Registration 用户注册
 router.post(

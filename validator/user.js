@@ -28,3 +28,36 @@ exports.register = validate([
       }
     }),
 ]);
+
+exports.login = [
+  validate([
+    body("user.emil").notEmpty().withMessage("邮箱不能为空"),
+    body("user.password").notEmpty().withMessage("密码不能为空"),
+  ]),
+  // 验证用户是否存在
+  validate([
+    body("user.email").custom(async (email, { req }) => {
+      const user = await User.findOne({ email }).select([
+        "email",
+        "password",
+        "username",
+        "bio",
+        "image",
+      ]);
+      // 查询数据库查看数据是否存在
+      if (!user) {
+        return Promise.reject("用户不存在");
+      }
+      // 将数据挂载到请求对象中，后续的中间件也可以直接使用，就不需要重复查询了
+      req.user = user;
+    }),
+  ]),
+  // 验证密码是否正确
+  validate([
+    body("user.password").custom(async (password, { req }) => {
+      if (md5(password) !== req.user.password) {
+        return Promise.reject("密码错误");
+      }
+    }),
+  ]),
+];
