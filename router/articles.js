@@ -24,14 +24,8 @@ router.get("/feed", async (req, res, next) => {
 });
 
 // Get Article
-router.get("/:slug", async (req, res, next) => {
-  try {
-    // 处理请求
-    res.send("get /articles/:slug");
-  } catch (err) {
-    next(err);
-  }
-});
+router.get("/:articleId", articleValidator.getArticle, articleCtrl.getArticle);
+
 
 // Create Article 创建文章
 router.post(

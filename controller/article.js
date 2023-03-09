@@ -19,3 +19,20 @@ exports.createArticle = async (req, res, next) => {
     next(err);
   }
 };
+
+
+// Get Article
+exports.getArticle = async (req, res, next) => {
+    try {
+      // 处理请求
+      const article = await Article.findById(req.params.articleId).populate("author");
+      if (!article) {
+        return res.status(404).end();
+      }
+      res.status(200).json({
+        article,
+      });
+    } catch (err) {
+      next(err);
+    }
+};
