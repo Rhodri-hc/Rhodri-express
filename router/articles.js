@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const articleValidator = require('../validator/article');
+const articleCtrl = require('../controller/article');
 
 // List Articles
 router.get("/", async (req, res, next) => {
@@ -31,15 +33,13 @@ router.get("/:slug", async (req, res, next) => {
   }
 });
 
-// Create Article
-router.post("/", async (req, res, next) => {
-  try {
-    // 处理请求
-    res.send("post /articles");
-  } catch (err) {
-    next(err);
-  }
-});
+// Create Article 创建文章
+router.post(
+  "/",
+  auth,
+  articleValidator.createArticle,
+  articleCtrl.createArticle
+);
 
 // Update Article
 router.put("/:slug", async (req, res, next) => {
