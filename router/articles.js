@@ -36,24 +36,21 @@ router.post(
 );
 
 // Update Article
-router.put("/:slug", async (req, res, next) => {
-  try {
-    // 处理请求
-    res.send("put /articles/:slug");
-  } catch (err) {
-    next(err);
-  }
-});
+router.put(
+  "/:articleId",
+  auth,
+  articleValidator.updateArticle,
+  articleCtrl.updateArticle
+);
+
 
 // Delete Article
-router.delete("/:slug", async (req, res, next) => {
-  try {
-    // 处理请求
-    res.send("delete /articles/:slug");
-  } catch (err) {
-    next(err);
-  }
-});
+router.delete(
+  "/:articleId",
+  auth,
+  articleValidator.deleteArticle,
+  articleCtrl.deleteArticle
+);
 
 // Add Comments to an Article
 router.post("/:slug/comments", async (req, res, next) => {
